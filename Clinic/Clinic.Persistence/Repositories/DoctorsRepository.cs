@@ -8,25 +8,29 @@ namespace Clinic.Persistence.Repositories;
 
 internal class DoctorsRepository : IDoctorsRepository
 {
-    private readonly DbSet<Doctor> _doctors;
+    private readonly ClinicDbContext _dbContext;
     
     public DoctorsRepository(ClinicDbContext dbContext)
-        => _doctors = dbContext.Set<Doctor>();
+        => _dbContext = dbContext;
 
     public async Task AddDoctor(Doctor doctor, CancellationToken cancellationToken)
     {
-        doctor.Id = Guid.NewGuid();
-        await _doctors.AddAsync(doctor, cancellationToken);
+        await _dbContext.Set<Doctor>().AddAsync(doctor, cancellationToken);
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<Doctor> GetDoctor(Guid id, CancellationToken cancellationToken)
     {
-        var doctor = _doctors.Local.SingleOrDefault(c=>c.Equals(id)) ?? 
-            await _doctors.SingleOrDefaultAsync(c=>c.Id == id, cancellationToken: cancellationToken);
+        var set = _dbContext.Set<Doctor>();
+        var doctor = set.Local.SingleOrDefault(c=>c.Equals(id)) ?? 
+            await set.SingleOrDefaultAsync(c=>c.Id == id, cancellationToken: cancellationToken);
 
         if (doctor is null)
             throw new EntityNotFoundException(id: id);
 
         return doctor;
     }
+
+    public async Task<IReadOnlyCollection<Doctor>> GetDoctors(CancellationToken cancellationToken)
+        => await _dbContext.Set<Doctor>().ToListAsync(cancellationToken);
 }

@@ -1,6 +1,7 @@
-﻿using Clinic.Infrastructure.CQRS.Abstracts.Commands;
+﻿using Clinic.Contracts.Doctors.Entities;
+using Clinic.Infrastructure.CQRS.Abstracts.Commands;
 
-namespace Clinic.Contracts.Doctors;
+namespace Clinic.Contracts.Doctors.Commands;
 
 public record CreateDoctor(
     string FirstName,

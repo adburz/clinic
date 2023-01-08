@@ -1,7 +1,7 @@
-﻿using Clinic.Contracts.Doctors;
+﻿using Clinic.Contracts.Doctors.Commands;
 using Clinic.Domain.Doctors.Entities;
 using Clinic.Infrastructure.CQRS.Abstracts.Commands;
-using SpecializationContract = Clinic.Contracts.Doctors.Specialization;
+using SpecializationContract = Clinic.Contracts.Doctors.Entities.Specialization;
 using SpecializationEntity = Clinic.Domain.Doctors.Entities.Specialization;
 
 namespace Clinic.Domain.Doctors.Handlers.Commands;
@@ -34,5 +34,6 @@ public class CreateDoctorCommandHandler : ICommandHandler<CreateDoctor>
             );
 
         await _repository.AddDoctor(doctor,cancellationToken);
+        command.CreatedId = createdId;
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Clinic.Contracts.Doctors;
+﻿namespace Clinic.Contracts.Doctors.Entities;
 
 public enum Specialization
 {

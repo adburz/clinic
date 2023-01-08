@@ -1,4 +1,6 @@
-﻿using Clinic.Contracts.Doctors;
+﻿using Clinic.Contracts.Doctors.Commands;
+using Clinic.Contracts.Doctors.Query;
+using Clinic.Contracts.Doctors.Responses;
 using Clinic.Infrastructure.CQRS.Dispatcher.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,27 +17,30 @@ public class DoctorsController : ControllerBase
     public DoctorsController(ICommandQueryDispatcher commandQueryDispatcher)
         => _commandQueryDispatcher = commandQueryDispatcher;
 
+    [HttpGet("list")]
+    public async Task<IReadOnlyCollection<DoctorResponse>?> GetList(CancellationToken cancellationToken)
+        => await _commandQueryDispatcher.SendAsync(
+            query: new GetDoctors(),
+            cancellationToken: cancellationToken);
+
+    [HttpGet("{doctorId:guid}")]
+    public async Task<DoctorResponse> GetDoctor(
+        [FromRoute] Guid doctorId,
+        CancellationToken cancellationToken
+        )
+        => await _commandQueryDispatcher.SendAsync(
+            query: new GetDoctor(Id: doctorId),
+            cancellationToken: cancellationToken);
+
     [HttpPost]
-    public async Task CreateDoctor(
-        [FromRoute] string FirstName,
-        [FromRoute] string LastName,
-        [FromRoute] Specialization Specialization,
-        [FromRoute] string Email,
-        [FromRoute] string MobilePhone,
-        [FromRoute] string Description,
+    public async Task<IActionResult> CreateDoctor(
+        [FromBody] CreateDoctor command,
         CancellationToken cancellationToken)
     {
         await _commandQueryDispatcher.SendAsync(
-            command:new CreateDoctor(
-                FirstName: FirstName,
-                LastName: LastName,
-                Specialization: Specialization,
-                Email: Email,
-                MobilePhone: MobilePhone,
-                Description: Description
-                ),
+            command: command,
             cancellationToken: cancellationToken);
-
+        return Ok(command.CreatedId);
         //TODO Return Location to GetDoctor endpoint with CreatedId parameter.
     }
 }
