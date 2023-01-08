@@ -18,6 +18,11 @@ public record DummyCommand():ICommand;
 
 public class DummyCommandHandler : ICommandHandler<DummyCommand>
 {
+    public DummyCommandHandler()
+    {
+
+    }
+
     public Task HandleAsync(DummyCommand command, CancellationToken cancellationToken)
     {
         return Task.FromResult(0);
@@ -27,6 +32,11 @@ public class DummyCommandHandler : ICommandHandler<DummyCommand>
 
 public class DummyQueryHandler : IQueryHandler<DummyQuery, string>
 {
+    public DummyQueryHandler()
+    {
+
+    }
+
     public Task<string> HandleAsync(DummyQuery query, CancellationToken cancellationToken)
     {
         return Task.FromResult("");

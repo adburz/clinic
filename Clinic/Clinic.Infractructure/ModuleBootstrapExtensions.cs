@@ -8,6 +8,6 @@ public static class ModuleBootstrapExtensions
 {
     public static IServiceCollection RegisterInfrastructure(this IServiceCollection services)
         => services
-            .RegisterCQRS()
-            .RegisterPipelines();
+            .RegisterPipelines()
+            .RegisterCQRS();
 }

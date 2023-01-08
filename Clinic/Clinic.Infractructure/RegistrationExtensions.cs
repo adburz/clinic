@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Clinic.Infrastructure;
 
-internal static class RegistrationExtensions
+public static class RegistrationExtensions
 {
     public static IServiceCollection RegisterAllCommandHandlersFromAssemblyContaining<TType>(this IServiceCollection services)
         => services.RegisterAllHandlersFromAssemblyContaining<TType>(typeof(ICommandHandler<>));
@@ -17,7 +17,7 @@ internal static class RegistrationExtensions
 
     private static IServiceCollection RegisterAllHandlersFromAssemblyContaining<TType>(this IServiceCollection services, Type handlerType)
     {
-        var assembly = typeof(TType).Assembly;
+        var assembly = typeof(TType).GetTypeInfo().Assembly;
         var handlers = assembly.GetTypes()
             .Where(c => 
             !c.IsAbstract && 
@@ -31,7 +31,7 @@ internal static class RegistrationExtensions
         {
             var types = h.GetInterfaces().Where(c=>c.GetTypeInfo().GetGenericTypeDefinition() == handlerType);
             foreach (var type in types ?? Array.Empty<Type>())
-                services.AddTransient(type);
+                services.AddTransient(type, h);
         }
         return services;
     }
