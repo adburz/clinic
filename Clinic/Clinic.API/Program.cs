@@ -18,6 +18,8 @@ builder.Services
 
 var app = builder.Build();
 
+app.Services.AppendEntitiesJsonMapping();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

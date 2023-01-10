@@ -8,4 +8,13 @@ internal class ClinicDbContext : DbContext
     public ClinicDbContext(DbContextOptions<ClinicDbContext> options) : base(options) { }
 
     public DbSet<Doctor> Doctors { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Doctor>().OwnsMany(
+        c => c.WorkHours, workHours =>
+        {
+            workHours.ToJson();
+        });
+    }
 }

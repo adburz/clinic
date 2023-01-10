@@ -4,14 +4,15 @@ namespace Clinic.Domain.Doctors.Entities;
 
 public class Doctor :IEntity
 {
-    public Guid Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public Guid Id { get;}
+    public string FirstName { get;  }
+    public string LastName { get; }
     public string FullName { get { return $"{FirstName} {LastName}"; } }
-    public Specialization Specialization { get; set; }
-    public string Email { get; set; }
-    public string MobilePhone { get; set; }
-    public string Description { get; set; }
+    public Specialization Specialization { get;  }
+    public string Email { get; }
+    public string MobilePhone { get;  }
+    public string Description { get;  }
+    public IEnumerable<WorkHour> WorkHours{ get; }
 
     public Doctor(
         Guid id, 

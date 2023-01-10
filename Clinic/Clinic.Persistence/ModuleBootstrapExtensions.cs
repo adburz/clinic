@@ -17,5 +17,4 @@ public static class ModuleBootstrapExtensions
                 maxRetryDelay: TimeSpan.FromSeconds(30),
                 errorNumbersToAdd: null)))
         .AddScoped<IDoctorsRepository, DoctorsRepository>();
-    
 }
