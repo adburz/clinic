@@ -12,4 +12,14 @@ public class MedicalVisitsController : ControllerBase
     public MedicalVisitsController(ICommandQueryDispatcher commandQueryDispatcher)
         => _commandQueryDispatcher = commandQueryDispatcher;
 
+    [HttpPost]
+    public async Task<IActionResult> CreateMedicalVisit(
+        [FromBody],
+        CancellationToken cancellationToken)
+    {
+        await _commandQueryDispatcher.SendAsync(
+            command: ,
+            cancellationToken: cancellationToken
+            );
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Clinic.Domain.Doctors.Entities;
+﻿using Clinic.Domain;
+using Clinic.Domain.Doctors.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Persistence.DbContexts;
@@ -11,10 +12,7 @@ internal class ClinicDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Doctor>().OwnsMany(
-        c => c.WorkHours, workHours =>
-        {
-            workHours.ToJson();
-        });
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.RegisterDomain();
     }
 }

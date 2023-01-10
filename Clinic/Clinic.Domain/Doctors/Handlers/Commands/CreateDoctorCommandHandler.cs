@@ -30,7 +30,8 @@ public class CreateDoctorCommandHandler : ICommandHandler<CreateDoctor>
             specialization: specialization,
             email: command.Email,
             mobilePhone: command.MobilePhone,
-            description: command.Description
+            description: command.Description,
+            workHours: null
             );
 
         await _repository.AddDoctor(doctor,cancellationToken);

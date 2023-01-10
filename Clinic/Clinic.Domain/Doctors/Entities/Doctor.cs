@@ -2,26 +2,28 @@
 
 namespace Clinic.Domain.Doctors.Entities;
 
-public class Doctor :IEntity
+public class Doctor : IEntity
 {
-    public Guid Id { get;}
-    public string FirstName { get;  }
+    public Guid Id { get; }
+    public string FirstName { get; }
     public string LastName { get; }
-    public string FullName { get { return $"{FirstName} {LastName}"; } }
-    public Specialization Specialization { get;  }
+    public Specialization Specialization { get; }
     public string Email { get; }
-    public string MobilePhone { get;  }
-    public string Description { get;  }
-    public IEnumerable<WorkHour> WorkHours{ get; }
+    public string MobilePhone { get; }
+    public string Description { get; }
+    public List<WorkHour>? WorkHours { get; }
+
+    private Doctor() { }
 
     public Doctor(
-        Guid id, 
-        string firstName, 
-        string lastName, 
-        Specialization specialization, 
-        string email, 
-        string mobilePhone, 
-        string description)
+        Guid id,
+        string firstName,
+        string lastName,
+        Specialization specialization,
+        string email,
+        string mobilePhone,
+        string description,
+        List<WorkHour>? workHours)
     {
         Id = id;
         FirstName = firstName;
@@ -30,5 +32,6 @@ public class Doctor :IEntity
         Email = email;
         MobilePhone = mobilePhone;
         Description = description;
+        WorkHours = workHours;
     }
 }
