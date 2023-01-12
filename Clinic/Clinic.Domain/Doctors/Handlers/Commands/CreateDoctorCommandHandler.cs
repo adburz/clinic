@@ -1,5 +1,6 @@
 ﻿using Clinic.Contracts.Doctors.Commands;
 using Clinic.Domain.Doctors.Entities;
+using Clinic.Domain.Doctors.Repositories.Abstracts;
 using Clinic.Infrastructure.CQRS.Abstracts.Commands;
 using SpecializationContract = Clinic.Contracts.Doctors.Entities.Specialization;
 using SpecializationEntity = Clinic.Domain.Doctors.Entities.Specialization;
@@ -31,10 +32,10 @@ public class CreateDoctorCommandHandler : ICommandHandler<CreateDoctor>
             email: command.Email,
             mobilePhone: command.MobilePhone,
             description: command.Description,
-            workHours: null
+            medicalVisits: null
             );
 
-        await _repository.AddDoctor(doctor,cancellationToken);
+        await _repository.AddDoctor(doctor, cancellationToken);
         command.CreatedId = createdId;
     }
 }

@@ -5,23 +5,24 @@
 namespace Clinic.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class ExtendDoctorWithWorkHoursJson : Migration
+    public partial class ExtendDoctorWithMedicalVisits : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "WorkHours",
+                name: "MedicalVisits",
                 table: "Doctors",
                 type: "nvarchar(max)",
-                nullable: true);
+                nullable: true,
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "WorkHours",
+                name: "MedicalVisits",
                 table: "Doctors");
         }
     }

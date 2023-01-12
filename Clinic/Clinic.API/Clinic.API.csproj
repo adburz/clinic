@@ -16,7 +16,6 @@
     <ProjectReference Include="..\Clinic.Contracts\Clinic.Contracts.csproj" />
     <ProjectReference Include="..\Clinic.Domain\Clinic.Domain.csproj" />
     <ProjectReference Include="..\Clinic.Infractructure\Clinic.Infrastructure.csproj" />
-    <ProjectReference Include="..\Clinic.Persistence\Clinic.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

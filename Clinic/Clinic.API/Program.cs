@@ -1,6 +1,5 @@
 using Clinic.Domain;
 using Clinic.Infrastructure;
-using Clinic.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .RegisterInfrastructure()
-    .RegisterPersistence(configuration: builder.Configuration)
-    .RegisterDomain();
+    .RegisterDomain(configuration: builder.Configuration);
 
 var app = builder.Build();
 
