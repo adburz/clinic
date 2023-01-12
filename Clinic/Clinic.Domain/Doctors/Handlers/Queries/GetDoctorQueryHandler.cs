@@ -1,6 +1,7 @@
 ﻿using Clinic.Contracts.Doctors.Query;
 using Clinic.Contracts.Doctors.Responses;
 using Clinic.Domain.Doctors.Entities;
+using Clinic.Domain.Doctors.Repositories.Abstracts;
 using Clinic.Infrastructure.CQRS.Abstracts.Queries;
 using SpecializationContract = Clinic.Contracts.Doctors.Entities.Specialization;
 

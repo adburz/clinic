@@ -1,8 +1,7 @@
-﻿using Clinic.Domain;
-using Clinic.Domain.Doctors.Entities;
+﻿using Clinic.Domain.Doctors.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.Persistence.DbContexts;
+namespace Clinic.Domain.DbContexts;
 
 internal class ClinicDbContext : DbContext
 {

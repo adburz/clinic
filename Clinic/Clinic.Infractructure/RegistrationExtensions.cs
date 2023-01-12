@@ -1,9 +1,7 @@
 ﻿using Clinic.Infrastructure.CQRS.Abstracts.Commands;
 using Clinic.Infrastructure.CQRS.Abstracts.Queries;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Clinic.Infrastructure;
 
