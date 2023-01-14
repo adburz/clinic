@@ -1,7 +1,6 @@
 ﻿using Clinic.Contracts.Doctors.Commands;
 using Clinic.Contracts.Doctors.Query;
 using Clinic.Contracts.Doctors.Responses;
-using Clinic.Contracts.MedicalVisits.Responses;
 using Clinic.Infrastructure.CQRS.Dispatcher.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,15 +19,6 @@ public class DoctorsController : ControllerBase
     public async Task<IReadOnlyCollection<DoctorResponse>?> GetList(CancellationToken cancellationToken)
         => await _commandQueryDispatcher.SendAsync(
             query: new GetDoctors(),
-            cancellationToken: cancellationToken);
-
-    [HttpGet("{doctorId:guid}/{medicalVisitId:guid}")]
-    public async Task<MedicalVisitResponse> GetMedicalVisit(
-        [FromRoute] Guid doctorId,
-        [FromRoute] Guid medicalVisitId,
-        CancellationToken cancellationToken)
-        => await _commandQueryDispatcher.SendAsync(
-            query: new GetMedicalVisit(DoctorId: doctorId, MedicalVisitId: medicalVisitId),
             cancellationToken: cancellationToken);
 
     [HttpGet("{doctorId:guid}")]
