@@ -1,4 +1,5 @@
 ﻿using Clinic.Contracts.Doctors.Entities;
+using Clinic.Contracts.Doctors.Query;
 using Clinic.Contracts.MedicalVisits.Commands;
 using Clinic.Contracts.MedicalVisits.Queries;
 using Clinic.Contracts.MedicalVisits.Responses;
@@ -25,6 +26,15 @@ public class MedicalVisitsController : ControllerBase
             query: new GetAvailableMedicalVisitsForDate(
                 Date: date,
                 DoctorSpecialization: doctorSpecialization),
+            cancellationToken: cancellationToken);
+
+    [HttpGet("{medicalVisitId:guid}/{doctorId:guid}")]
+    public async Task<MedicalVisitResponse> GetMedicalVisit(
+        [FromRoute] Guid doctorId,
+        [FromRoute] Guid medicalVisitId,
+        CancellationToken cancellationToken)
+        => await _commandQueryDispatcher.SendAsync(
+            query: new GetMedicalVisit(DoctorId: doctorId, MedicalVisitId: medicalVisitId),
             cancellationToken: cancellationToken);
 
     [HttpPost]

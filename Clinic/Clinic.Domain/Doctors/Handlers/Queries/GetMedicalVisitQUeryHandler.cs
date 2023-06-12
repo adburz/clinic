@@ -6,20 +6,21 @@ using Clinic.Infrastructure.CQRS.Abstracts.Queries;
 
 namespace Clinic.Domain.Doctors.Handlers.Queries;
 
-internal class GetMedicalVisitQUeryHandler : IQueryHandler<GetMedicalVisit, MedicalVisitResponse>
+internal class GetMedicalVisitQueryHandler : IQueryHandler<GetMedicalVisit, MedicalVisitResponse>
 {
     private readonly IDoctorsRepository _repository;
 
-    public GetMedicalVisitQUeryHandler(IDoctorsRepository repository)
+    public GetMedicalVisitQueryHandler(IDoctorsRepository repository)
         => _repository = repository;
-
 
     public async Task<MedicalVisitResponse> HandleAsync(GetMedicalVisit query, CancellationToken cancellationToken)
     {
         var doctor = await _repository.GetDoctor(id: query.DoctorId, cancellationToken: cancellationToken);
 
         var visits = doctor.MedicalVisits.Select(c => c.Value);
-        var result = visits.SelectMany(c => c.Values).FirstOrDefault(x => x.Id == query.MedicalVisitId);
+        var result = visits.SelectMany(c => c.Values)
+            .Where(c => c is not null)
+            .FirstOrDefault(x => x.Id == query.MedicalVisitId);
 
         return new MedicalVisitResponse(
             Id: result.Id,
