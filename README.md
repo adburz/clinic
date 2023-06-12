@@ -1,3 +1,3 @@
 # clinic
 
-onion architecture application made on studies.
+Onion architecture, CRUD Web application made on studies.
